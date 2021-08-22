@@ -89,7 +89,11 @@ end
 
 @testset "eltype" begin
     x = [1]
-    @test eltype(SplitIterators.split(x, 1)) == Union{SubArray{Int64, 1, Vector{Int64}, Tuple{UnitRange{Int64}}, true}, Vector{Int64}}
+    if VERSION < v"1.4"
+        @test eltype(SplitIterators.split(x, 1)) == Vector{Int}
+    else
+        @test eltype(SplitIterators.split(x, 1)) == Union{SubArray{Int64, 1, Vector{Int64}, Tuple{UnitRange{Int64}}, true}, Vector{Int64}}
+    end
     x = 1:2
     @test eltype(SplitIterators.split(x, 1)) == Union{UnitRange{Int64}, Vector{Int64}}
 end
