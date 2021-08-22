@@ -1,13 +1,12 @@
-
 module SplitIterators
 
 import .Base:
     iterate, length, eltype, IteratorEltype, IteratorSize
 
 """
-    split(collection, parts_count)
+    split(iterator, parts_count)
 
-Splits a collection into at most `parts_count` partitions with almost the same size.
+Splits an iterator into at most `parts_count` partitions with almost the same size.
 """
 function split(itr, parts_count::Integer)
     parts_count < 1 && throw(ArgumentError("cannot split iterator into $parts_count partitions"))
