@@ -30,9 +30,9 @@ struct SplitIterator{T1<:Iterators.PartitionIterator,T2<:Iterators.PartitionIter
     small_itr::T2
 end
 
-eltype(::Type{SplitIterator{T}}) where {T} = eltype(T)
-IteratorEltype(::Type{SplitIterator{T}}) where {T} = IteratorEltype(T)
-IteratorSize(::Type{SplitIterator{T}}) where {T} = IteratorSize(T)
+eltype(::Type{SplitIterator{T1,T2}}) where {T1,T2} = eltype(T1) == eltype(T2) ? eltype(T1) : Union{eltype(T1), eltype(T2)}
+IteratorEltype(::Type{SplitIterator{T1, T2}}) where {T1, T2} = IteratorEltype(T1) == IteratorEltype(T2) ? IteratorEltype(T1) : Union{IteratorEltype(T1), IteratorEltype(T2)}
+IteratorSize(::Type{SplitIterator{T1, T2}}) where {T1, T2} = IteratorSize(T1)
 length(itr::SplitIterator) = itr.parts_count
 
 struct SplitIteratorState{T}
